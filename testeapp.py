@@ -4,7 +4,7 @@ from io import BytesIO
 from PIL import Image
 
 def main():
-    st.title("Upload de Imagem e Observações")
+    st.title("Upload de Imagem e ObservaÃ§Ãµes")
     
     uploaded_file = st.file_uploader("Carregar uma imagem", type=["png", "jpg", "jpeg"])
     
@@ -12,14 +12,14 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, caption="Imagem Carregada", use_column_width=True)
     
-    observacao = st.text_area("Observações", "Digite suas observações aqui...")
+    observacao = st.text_area("ObservaÃ§Ãµes", "Digite suas observaÃ§Ãµes aqui...")
     
     if st.button("Salvar em Planilha"):
-        df = pd.DataFrame({"Observações": [observacao]})
+        df = pd.DataFrame({"ObservaÃ§Ãµes": [observacao]})
         
         output = BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            df.to_excel(writer, index=False, sheet_name="Dados")
+            df.to_excel(writer, index=False, sheet_name="Dados", encoding="utf-8")  # <- Aqui pode ser utf-8-sig se necessÃ¡rio
             writer.close()
         
         output.seek(0)
